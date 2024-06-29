@@ -7,7 +7,9 @@ const menuItemSchema = new Schema({
     type: String,
     required: true
   },
-  description: { type: String },
+  description: { type: String ,
+    required:true
+  },
   price: { type: Number, required: true },
   // image: { type: String },
   category: { type: Schema.Types.ObjectId,

@@ -57,154 +57,153 @@ const addToCart = async (req, res) => {
 };
 
 const updateCartItem = async (req, res) => {
-    const { customerId, menuItemId, quantity } = req.body;
-  
-    try {
-      let order = await Order.findOne({ customer: customerId });
-  
-      if (!order) {
-        return res.status(404).json({ success: false, message: 'Cart not found' });
-      }
-  
-      const existingItem = order.items.find(item => item.menuItem.toString() === menuItemId);
-      if (!existingItem) {
-        return res.status(404).json({ success: false, message: 'Item not found in cart' });
-      }
-  
-      existingItem.quantity = quantity;
-  
-      order.totalAmount = order.items.reduce((total, item) => total + item.quantity * menuItem.price, 0);
-  
-      await order.save();
-  
-      res.status(200).json({
-        success: true,
-        message: 'Cart item updated successfully',
-        data: order.items,
-      });
-    } catch (error) {
-      res.status(400).json({ success: false, message: error.message });
-    }
-  };
-  
-  // Remove item from the cart
-  const removeFromCart = async (req, res) => {
-    const { customerId, menuItemId } = req.params;
-  
-    try {
-      let order = await Order.findOne({ customer: customerId });
-  
-      if (!order) {
-        return res.status(404).json({ success: false, message: 'Cart not found' });
-      }
-  
-      order.items = order.items.filter(item => item.menuItem.toString() !== menuItemId);
-  
-      order.totalAmount = order.items.reduce((total, item) => total + item.quantity * menuItem.price, 0);
-  
-      await order.save();
-  
-      res.status(200).json({
-        success: true,
-        message: 'Item removed from cart successfully',
-        data: order.items,
-      });
-    } catch (error) {
-      res.status(400).json({ success: false, message: error.message });
-    }
-  };
-  const getOrderDetails = async (req, res) => {
-    const { orderId } = req.params;
-  
-    try {
-      // Find the order by ID
-      const order = await Order.findById(orderId).populate('items.menuItem');
-  
-      if (!order) {
-        return res.status(404).json({ success: false, message: 'Order not found' });
-      }
+  const { customerId, menuItemId, quantity } = req.body;
 
-  
-      // Optionally, you may want to calculate total amount here as well
-      // This assumes you have price information in MenuItem model
-  
-      // Calculate total amount
-      let totalAmount = 0;
-      for (const item of order.items) {
-        const menuItem = await MenuItem.findById(item.menuItem);
-        if (menuItem) {
-          totalAmount += menuItem.price * item.quantity;
-        }
-      }
-  
-      res.status(200).json({
-        success: true,
-        message: 'Order details retrieved successfully',
-        data: {
-          order,
-          totalAmount
-        }
-      });
-    } catch (error) {
-      res.status(500).json({ success: false, message: error.message });
-    }
-  };
+  try {
+    let order = await Order.findOne({ customer: customerId });
 
-  const setorderstatus = async(req , res)=>{
-
-    const { orderId } = req.params;
-  
-    try {
-      const order = await Order.findById(orderId).populate('items.menuItem');
-  
-      if (!order) {
-        return res.status(404).json({ success: false, message: 'Order not found' });
-      }
-      let status = order.status;
-      if(status ===false){
-        order.status = true;
-        await order.save();
-      }
-  
-      
-      res.status(200).json({
-        success: true,
-        message: 'Cart item updated successfully',
-        data: order.items,
-      });
-    } catch (error) {
-      res.status(400).json({ success: false, message: error.message });
+    if (!order) {
+      return res.status(404).json({ success: false, message: 'Cart not found' });
     }
+
+    const existingItem = order.items.find(item => item.menuItem.toString() === menuItemId);
+    if (!existingItem) {
+      return res.status(404).json({ success: false, message: 'Item not found in cart' });
+    }
+
+    existingItem.quantity = quantity;
+
+    order.totalAmount = order.items.reduce((total, item) => total + item.quantity * menuItem.price, 0);
+
+    await order.save();
+
+    res.status(200).json({
+      success: true,
+      message: 'Cart item updated successfully',
+      data: order.items,
+    });
+  } catch (error) {
+    res.status(400).json({ success: false, message: error.message });
   }
+};
 
-  const getIncomingOrders = async (req, res) => {
-    try {
-      // Find all orders where status is false (assuming 'status' indicates completion status)
-      const orders = await Order.find({ status: false })
-        .populate('items.menuItem'); // Populate items with menu item details
-  
-      // Calculate total amount for each order
-      const ordersWithTotal = orders.map(order => {
-        let totalAmount = 0;
-        order.items.forEach(item => {
-          totalAmount += item.quantity * item.menuItem.price;
-        });
-        return {
-          _id: order._id,
-          tableNumber: order.tableNumber,
-          items: order.items,
-          totalAmount: totalAmount.toFixed(2), // Format total amount to two decimal places
-        };
-      });
-  
-      res.status(200).json({
-        success: true,
-        message: 'Incoming orders retrieved successfully',
-        data: ordersWithTotal,
-      });
-    } catch (error) {
-      res.status(500).json({ success: false, message: error.message });
+// Remove item from the cart
+const removeFromCart = async (req, res) => {
+  const { customerId, menuItemId } = req.params;
+
+  try {
+    let order = await Order.findOne({ customer: customerId });
+
+    if (!order) {
+      return res.status(404).json({ success: false, message: 'Cart not found' });
     }
-  };
-  
-  module.exports = { getCartItems, addToCart, updateCartItem, removeFromCart,getOrderDetails,setorderstatus,getIncomingOrders };
+
+    order.items = order.items.filter(item => item.menuItem.toString() !== menuItemId);
+
+    order.totalAmount = order.items.reduce((total, item) => total + item.quantity * menuItem.price, 0);
+
+    await order.save();
+
+    res.status(200).json({
+      success: true,
+      message: 'Item removed from cart successfully',
+      data: order.items,
+    });
+  } catch (error) {
+    res.status(400).json({ success: false, message: error.message });
+  }
+};
+const getOrderDetails = async (req, res) => {
+  const { orderId } = req.params;
+
+  try {
+    // Find the order by ID
+    const order = await Order.findById(orderId).populate('items.menuItem');
+
+    if (!order) {
+      return res.status(404).json({ success: false, message: 'Order not found' });
+    }
+
+
+
+
+    // Calculate total amount
+    let totalAmount = 0;
+    for (const item of order.items) {
+      const menuItem = await MenuItem.findById(item.menuItem);
+      if (menuItem) {
+        totalAmount += menuItem.price * item.quantity;
+      }
+    }
+
+    res.status(200).json({
+      success: true,
+      message: 'Order details retrieved successfully',
+      data: {
+        order,
+        totalAmount
+      }
+    });
+  } catch (error) {
+    res.status(500).json({ success: false, message: error.message });
+  }
+};
+
+const setorderstatus = async (req, res) => {
+
+  const { orderId } = req.params;
+
+  try {
+    const order = await Order.findById(orderId).populate('items.menuItem');
+
+    if (!order) {
+      return res.status(404).json({ success: false, message: 'Order not found' });
+    }
+    let status = order.status;
+    if (status === false) {
+      order.status = true;
+      await order.save();
+    }
+
+
+    res.status(200).json({
+      success: true,
+      message: 'Cart item updated successfully',
+      data: order.items,
+    });
+  } catch (error) {
+    res.status(400).json({ success: false, message: error.message });
+  }
+}
+
+const getIncomingOrders = async (req, res) => {
+  try {
+    // Find all orders where status is false (assuming 'status' indicates completion status)
+    const orders = await Order.find({ status: false })
+      .populate('items.menuItem'); // Populate items with menu item details
+
+    // Calculate total amount for each order
+    const ordersWithTotal = orders.map(order => {
+      let totalAmount = 0;
+      order.items.forEach(item => {
+        totalAmount += item.quantity * item.menuItem.price;
+      });
+      return {
+        _id: order._id,
+        tableNumber: order.tableNumber,
+        items: order.items,
+        totalAmount: totalAmount.toFixed(2), // Format total amount to two decimal places
+      };
+    });
+
+    res.status(200).json({
+      success: true,
+      message: 'Incoming orders retrieved successfully',
+      data: ordersWithTotal,
+    });
+  } catch (error) {
+    res.status(500).json({ success: false, message: error.message });
+  }
+};
+
+module.exports = { getCartItems, addToCart, updateCartItem, removeFromCart, getOrderDetails, setorderstatus, getIncomingOrders };

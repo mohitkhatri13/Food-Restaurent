@@ -1,7 +1,12 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import {login} from "../slice/authSlice"
+import { checkrole } from '../slice/staffcustomerSlice';
 const LoginForm = () => {
+  const dispatch = useDispatch();
+
   const [formData, setFormData] = useState({
     email: '',
     password: ''
@@ -18,12 +23,20 @@ const LoginForm = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
      try{
-        const response = await axios.post("http://localhost:3000/api/v1/auth/login",formData);
+        const response =  await axios.post("http://localhost:3000/api/v1/auth/login",formData);
+         let type = response.data.user.role;
+         if(type==="staff"){
+          dispatch(checkrole(false));
+         }
+         else{
+          dispatch(checkrole(true));
+         }
+        dispatch(login(true));
         navigate("/")
-        console.log(response)
+       
      }
      catch(error){
-        console.lof(error)
+        console.log(error)
      }
    
   };

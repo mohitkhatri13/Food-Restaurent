@@ -10,7 +10,7 @@ exports.auth = async (req, res, next) => {
     const token =
       req.body.token ||
       req.header("Authorisation").replace("Bearer", "");
-
+         console.log("hello");
     if (!token) {
       return res.status(401).json({
         success: false,
