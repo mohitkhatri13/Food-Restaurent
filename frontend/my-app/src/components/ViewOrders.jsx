@@ -43,7 +43,8 @@ const ViewOrders = () => {
   };
 
   return (
-    <div className="p-4">
+     <div className="w-full flex flex-col items-center justify-center">
+    <div className="p-4 lg:w-[50%] w-11/12">
       <Toaster />
       <h2 className="text-2xl font-semibold mb-4">Pending Orders</h2>
       <ul className="space-y-4">
@@ -81,6 +82,7 @@ const ViewOrders = () => {
           </li>
         ))}
       </ul>
+    </div>
     </div>
   );
 };
