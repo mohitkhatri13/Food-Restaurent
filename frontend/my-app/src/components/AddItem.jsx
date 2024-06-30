@@ -20,11 +20,9 @@ const AddItem = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const response =  await axios.post("http://localhost:3000/api/v1/createmenu",formData);
-    // Replace with your API call to add the item
-    console.log(response);
-    // Clear form after submission (optional)
-
+   await axios.post("http://localhost:3000/api/v1/createmenu",formData);
+    // console.log(response);
+   
     setFormData({
       name: '',
       category: '',
@@ -46,7 +44,7 @@ const AddItem = () => {
             name="name"
             value={formData.name}
             onChange={handleChange}
-            className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+            className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-orange-500 focus:border-orange-500 sm:text-sm"
             required
           />
         </div>
@@ -57,7 +55,7 @@ const AddItem = () => {
             name="category"
             value={formData.category}
             onChange={handleChange}
-            className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+            className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-orange-500 focus:border-orange-500 sm:text-sm"
             required
           >
             <option value="">Select a category</option>
@@ -69,7 +67,6 @@ const AddItem = () => {
             <option value="lunch">Lunch</option>
             <option value="diet">Diet</option>
             <option value="dinner">Dinner</option>
-            {/* Add more options as needed */}
           </select>
         </div>
         <div>
@@ -80,7 +77,7 @@ const AddItem = () => {
             name="price"
             value={formData.price}
             onChange={handleChange}
-            className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+            className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-orange-500 focus:border-orange-500 sm:text-sm"
             required
           />
         </div>
@@ -92,14 +89,14 @@ const AddItem = () => {
             value={formData.description}
             onChange={handleChange}
             rows={3}
-            className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+            className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-orange-500 focus:border-orange-500 sm:text-sm"
             required
           />
         </div>
         <div className="flex justify-center">
           <button
             type="submit"
-            className="bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+            className="bg-orange-600 hover:bg-orange-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:ring-2 focus:ring-orange-500 focus:ring-offset-2"
           >
             Add Item
           </button>

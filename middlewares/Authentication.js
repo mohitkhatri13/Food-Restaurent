@@ -2,11 +2,9 @@ const jwt = require("jsonwebtoken");
 
 require("dotenv").config();
 
-// const User = require("../models/usermodel");
-
 exports.auth = async (req, res, next) => {
   try {
-    //extract token
+    // token extract kr rhe
     const token =
       req.body.token ||
       req.header("Authorisation").replace("Bearer", "");
@@ -17,7 +15,6 @@ exports.auth = async (req, res, next) => {
         message: "Token missing",
       });
     }
-    //verify the token
     try {
       const decode =  jwt.verify(token, process.env.JWT_SECRET);
       // console.log(decode);
@@ -38,7 +35,7 @@ exports.auth = async (req, res, next) => {
   }
 };
 
- 
+//  is Staff authentication
 exports.isStaff = async (req, res, next) => {
   try {
     if (req.user.role !== "staff") {
@@ -56,7 +53,7 @@ exports.isStaff = async (req, res, next) => {
   }
 };
 
-//is instructor
+//is customer authentication
 exports.isCustomer = async (req, res, next) => {
   try {
     if (req.user.role !== "customer") {

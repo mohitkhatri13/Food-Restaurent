@@ -1,9 +1,10 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { removeFromCart } from "../slice/cartSlice"; // Adjust the import path accordingly
+import { removeFromCart, incrementQuantity, decrementQuantity } from "../slice/cartSlice"; 
 import axios from "axios";
 import toast from "react-hot-toast";
-
+import { FaPlus } from "react-icons/fa6";
+import { FaMinus } from "react-icons/fa6";
 const Cart = () => {
   const cartItems = useSelector((state) => state.cart.cartItems);
   const dispatch = useDispatch();
@@ -12,8 +13,16 @@ const Cart = () => {
     dispatch(removeFromCart({ id }));
   };
 
+  const handleIncrementQuantity = (id) => {
+    dispatch(incrementQuantity({ id }));
+  };
+
+  const handleDecrementQuantity = (id) => {
+    dispatch(decrementQuantity({ id }));
+  };
+
   const userId = useSelector((state) => state?.auth?.user);
-  // Calculate total price
+  
   const totalPrice = cartItems.reduce((total, item) => {
     return total + item.price * item.quantity;
   }, 0);
@@ -28,19 +37,18 @@ const Cart = () => {
         return;
       }
 
-      // Assuming you have an API endpoint to save the order to the database
+  
       const response = await axios.post(
         "http://localhost:3000/api/v1/createorder",
         {
           userId: userId,
           items: cartItems,
           totalPrice: totalPrice,
-          // Add any other necessary data here
         }
       );
 
-      // Clear the cart after successful order placement
-      dispatch({ type: "cart/clearCart" }); // Replace with your actual action
+      
+      dispatch({ type: "cart/clearCart" }); 
 
       toast.success("Order placed successfully!");
     } catch (error) {
@@ -49,8 +57,8 @@ const Cart = () => {
     }
   };
 
-  return (
-    <div className="p-4">
+  return ( <div className="w-full flex flex-col items-center justify-center">
+    <div className="p-4 w-11/12 ">
       <h2 className="text-2xl font-semibold mb-4">Cart</h2>
       <ul className="space-y-4">
         {cartItems.map((item) => (
@@ -61,6 +69,21 @@ const Cart = () => {
                 <p className="text-gray-700">
                   Rs-{item.price} x {item.quantity}
                 </p>
+                <div className="flex items-center">
+                  <button
+                    onClick={() => handleDecrementQuantity(item.id)}
+                    className="text-red-600 hover:text-red-800 focus:outline-none"
+                  >
+                    <FaMinus />
+                  </button>
+                  <span className="mx-2">{item.quantity}</span>
+                  <button
+                    onClick={() => handleIncrementQuantity(item.id)}
+                    className="text-orange-600 hover:text-orange-800 focus:outline-none"
+                  >
+                    <FaPlus />
+                  </button>
+                </div>
               </div>
               <button
                 onClick={() => handleRemoveFromCart(item.id)}
@@ -76,7 +99,7 @@ const Cart = () => {
         <h3 className="text-lg font-semibold">Total Price: Rs-{totalPrice}</h3>
         <button
           onClick={handleConfirmOrder}
-          className={`mt-4 bg-green-500 text-white px-4 py-2 rounded hover:bg-green-700 ${
+          className={`mt-4 bg-orange-500 text-white px-4 py-2 rounded hover:bg-orange-700 ${
             cartItems.length === 0 ? "opacity-50 cursor-not-allowed" : ""
           }`}
           disabled={cartItems.length === 0}
@@ -84,6 +107,7 @@ const Cart = () => {
           Confirm Order
         </button>
       </div>
+    </div>
     </div>
   );
 };

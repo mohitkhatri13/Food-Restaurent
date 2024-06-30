@@ -1,11 +1,10 @@
-// controllers/categoryController.js
 const Category = require('../models/categorySchema');
 
 const createCategory = async (req, res) => {
   const { name } = req.body;
 
   try {
-    // Check if a category with the same name already exists
+
     const existingCategory = await Category.findOne({ name });
 
     if (existingCategory) {
@@ -43,4 +42,4 @@ const getCategories = async (req, res) => {
   }
 };
 
-module.exports = { createCategory , getCategories };
+module.exports = { createCategory, getCategories };

@@ -7,15 +7,12 @@ const getMenuItems = async (req, res) => {
 
     let menuItems;
     if (category) {
-      // Find the category by name
       const categoryDoc = await Category.findOne({ name: category });
       if (!categoryDoc) {
         return res.status(404).json({ error: `Category '${category}' not found` });
       }
-      // Find menu items by category ID
       menuItems = await MenuItem.find({ category: categoryDoc._id }).populate('category');
     } else {
-      // If no category is specified, return all menu items
       menuItems = await MenuItem.find().populate('category');
     }
 
@@ -26,10 +23,9 @@ const getMenuItems = async (req, res) => {
 };
 
 const createMenuItem = async (req, res) => {
-  const { name, category, price,description } = req.body;
+  const { name, category, price, description } = req.body;
 
   try {
-    // Check if a menu item with the same name already exists
     const existingMenuItem = await MenuItem.findOne({ name });
 
     if (existingMenuItem) {
@@ -39,7 +35,6 @@ const createMenuItem = async (req, res) => {
       });
     }
 
-    // Find or create the category
     let categoryObj = await Category.findOne({ name: category });
 
     if (!categoryObj) {
@@ -47,11 +42,9 @@ const createMenuItem = async (req, res) => {
       await categoryObj.save();
     }
 
-    // Create and save the new menu item
-    const menuItem = new MenuItem({ name, category: categoryObj._id, price,description });
+    const menuItem = new MenuItem({ name, category: categoryObj._id, price, description });
     await menuItem.save();
 
-    // Add the menu item to the category's items array
     categoryObj.items.push(menuItem._id);
     await categoryObj.save();
 

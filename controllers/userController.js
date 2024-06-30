@@ -32,7 +32,6 @@ exports.signup = async (req, res) => {
                 message: "Password and Confirm Password does not matched",
             });
         }
-        //check user already exist or not
         const existinguser = await User.findOne({ email });
         if (existinguser) {
             return res.status(400).json({
@@ -42,8 +41,6 @@ exports.signup = async (req, res) => {
         }
 
         const hashedpassword = await bcrypt.hash(password, 10);
-
-        //entry in db
         const user = await User.create({
             firstName,
             lastName,
@@ -51,7 +48,6 @@ exports.signup = async (req, res) => {
             password: hashedpassword,
             role,
         });
-        //return response
         return res.status(200).json({
             success: true,
             messgae: "User registered Successfully",
@@ -66,7 +62,7 @@ exports.signup = async (req, res) => {
     }
 };
 
-//login
+//login 
 
 exports.login = async (req, res) => {
     try {

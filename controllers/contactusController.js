@@ -1,14 +1,9 @@
 const express = require('express');
-const router = express.Router();
 const Contact = require('../models/contactus');
- 
 
-
-const contactus =  async (req, res) => {
+const contactus = async (req, res) => {
   try {
     const { name, email, phone, message } = req.body;
-    
-    // Create new contact instance
     const newContact = new Contact({
       name,
       email,
@@ -16,7 +11,6 @@ const contactus =  async (req, res) => {
       message
     });
 
-    // Save contact to database
     const savedContact = await newContact.save();
 
     res.status(201).json(savedContact);
@@ -26,4 +20,4 @@ const contactus =  async (req, res) => {
   }
 };
 
-module.exports = {contactus};
+module.exports = { contactus };

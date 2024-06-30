@@ -2,9 +2,8 @@ import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { login } from "../slice/authSlice";
 import { checkrole } from "../slice/staffcustomerSlice";
-import { loginSuccess } from "../slice/authSlice";
+import { loginSuccess ,login , usertoken} from "../slice/authSlice";
 import toast from "react-hot-toast";
 const LoginForm = () => {
   const dispatch = useDispatch();
@@ -29,9 +28,10 @@ const LoginForm = () => {
         "http://localhost:3000/api/v1/auth/login",
         formData
       );
-
-      const userId = response.data;
+         console.log(response.data.token);
+      const userId = response?.data;
       dispatch(loginSuccess(userId));
+      dispatch(usertoken(response?.data?.token))
 
       let type = response.data.user.role;
       dispatch(loginSuccess(userId));
@@ -86,7 +86,7 @@ const LoginForm = () => {
               type="submit"
               className="bg-orange-500 hover:bg-orange-700 text-white font-bold py-2 px-4 rounded w-full"
             >
-              Sign In
+              Log In
             </button>
           </div>
         </form>

@@ -69,14 +69,14 @@ const Navbar = () => {
                 </Link>
               </div>
             ) : null}
-
-            <Link
-              to="/contactus"
-              className="hover:scale-105 hover:text-gray-700"
-            >
-              {" "}
-              Contact-us{" "}
-            </Link>
+            {/* {isLoggedIn && !isCustomer ? (
+              <Link
+                to="/additem"
+                className="hover:scale-105 hover:text-gray-700"
+              >
+                Add Items
+              </Link>
+            ) : null} */}
             {isLoggedIn && !isCustomer ? (
               <Link
                 to="/vieworders"
@@ -85,14 +85,13 @@ const Navbar = () => {
                 View orders
               </Link>
             ) : null}
-            {isLoggedIn && !isCustomer ? (
-              <Link
-                to="/additem"
-                className="hover:scale-105 hover:text-gray-700"
-              >
-                Add Items
-              </Link>
-            ) : null}
+            <Link
+              to="/contactus"
+              className="hover:scale-105 hover:text-gray-700"
+            >
+              {" "}
+              Contact-us{" "}
+            </Link>
           </ul>
         </div>
         <div className="flex items-center space-x-4">
@@ -146,30 +145,6 @@ const Navbar = () => {
                       Menu
                     </Link>
                   </li>
-                  <li className="hover:scale-105">
-                    <Link to="/orders" onClick={closeMenu}>
-                      Orders
-                    </Link>
-                  </li>
-                  <li className="hover:scale-105">
-                    <Link to="/contactus" onClick={closeMenu}>
-                      Contact
-                    </Link>
-                  </li>
-                  {isLoggedIn && !isCustomer ? (
-                    <li className="hover:scale-105">
-                      <Link to="/vieworders" onClick={closeMenu}>
-                        View Orders
-                      </Link>
-                    </li>
-                  ) : null}
-                  {isLoggedIn && !isCustomer ? (
-                    <li className="hover:scale-105">
-                      <Link to="/additem" onClick={closeMenu}>
-                        Add New Item
-                      </Link>
-                    </li>
-                  ) : null}
                   {isLoggedIn && isCustomer ? (
                     <div className="flex gap-x-1 items-center">
                       <Link
@@ -182,6 +157,32 @@ const Navbar = () => {
                       <BsCart2 />
                     </div>
                   ) : null}
+                  <li className="hover:scale-105">
+                    <Link to="/orders" onClick={closeMenu}>
+                      My Orders
+                    </Link>
+                  </li>
+                  {/* {isLoggedIn && !isCustomer ? (
+                    <li className="hover:scale-105">
+                      <Link to="/additem" onClick={closeMenu}>
+                        Add New Item
+                      </Link>
+                    </li>
+                  ) : null} */}
+                  <li className="hover:scale-105">
+                    <Link to="/contactus" onClick={closeMenu}>
+                      Contact Us
+                    </Link>
+                  </li>
+                  {isLoggedIn && !isCustomer ? (
+                    <li className="hover:scale-105">
+                      <Link to="/vieworders" onClick={closeMenu}>
+                        View Orders
+                      </Link>
+                    </li>
+                  ) : null}
+
+                 
                 </ul>
               </div>
             </div>

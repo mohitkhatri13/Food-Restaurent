@@ -1,8 +1,7 @@
-// models/Category.js
-const mongoose = require('mongoose');
-const Schema = mongoose.Schema;
 
-const categorySchema = new Schema({
+const mongoose = require('mongoose');
+
+const categorySchema = new mongoose.Schema({
   name: { type: String, required: true, unique: true },
   items:[{
     type:mongoose.Schema.Types.ObjectId,
@@ -10,5 +9,4 @@ const categorySchema = new Schema({
  }]
 });
 
-const Category = mongoose.model('Category', categorySchema);
-module.exports = Category;
+module.exports = mongoose.model('Category', categorySchema);

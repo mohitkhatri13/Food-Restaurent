@@ -81,7 +81,6 @@ const SignupForm = () => {
               onChange={handleChange}
               placeholder="Last Name"
               className="border-2 border-gray-300 p-2 w-full rounded"
-              required
             />
           </div>
           <div className="mb-4">

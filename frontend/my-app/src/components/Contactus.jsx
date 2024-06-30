@@ -24,7 +24,7 @@ const ContactForm = () => {
       const response = await axios.post(
         "http://localhost:3000/api/v1/contactus",
         formData
-      ); // Replace with your API endpoint
+      ); 
 
       toast.success("Message sent successfully!");
 
