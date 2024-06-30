@@ -67,6 +67,7 @@ const AddItem = () => {
             <option value="lunch">Lunch</option>
             <option value="diet">Diet</option>
             <option value="dinner">Dinner</option>
+            <option value="snacks">Snacks</option>
           </select>
         </div>
         <div>

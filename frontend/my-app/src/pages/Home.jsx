@@ -28,6 +28,7 @@ const Home = () => {
             name={menuItem.name}
             description={menuItem.description}
             price={menuItem.price}
+            image={menuItem.image||""}
           />
         ))}
       </div>
