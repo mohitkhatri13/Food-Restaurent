@@ -21,14 +21,14 @@ const MenuCard = ({ id, name, description, price, image }) => {
   };
 
   return (
-    <div className="border p-4 rounded shadow-md bg-white w-80 flex flex-col">
-      <h2 className="text-xl font-semibold mt-2">{name}</h2>
+    <div className="border p-4 rounded shadow-lg bg-white w-80 flex flex-col hover:scale-105 transition-all duration-300 ">
+      <h2 className="text-xl mt-2 mb-4 font-bold">{name}</h2>
       {image && <img src={image} alt={name} loading='lazy' className="w-full h-48 object-cover rounded-t " />}
       <p className="text-gray-700">{description}</p>
       <p className="text-lg font-bold">Rs-{price}</p>
       <button
         onClick={handleAddToCart}
-        className="mt-2 scale-75 lg:scale-100 max-w-fit bg-orange-500 text-white px-4 py-2 rounded hover:bg-orange-700 lg:hover:scale-95"
+        className=" mt-2 scale-75 lg:scale-100 max-w-fit bg-orange-500 text-white px-4 py-2 rounded hover:bg-orange-700 lg:hover:scale-95"
       >
         Add to Cart
       </button>

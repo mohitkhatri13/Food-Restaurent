@@ -19,7 +19,7 @@ const Home = () => {
   }, []);
 
   return (
-    <div className='h-screen bg-orange-100'>
+    <div className='h-full bg-orange-100'>
       <div className="flex flex-wrap justify-center gap-4 p-4">
         {menu.map((menuItem) => (
           <MenuCard
