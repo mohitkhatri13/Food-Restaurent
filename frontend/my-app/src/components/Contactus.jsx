@@ -22,7 +22,7 @@ const ContactForm = () => {
     e.preventDefault();
     try {
       await axios.post(
-        "http://localhost:3000/api/v1/contactus",
+        "https://food-restaurent-plum.vercel.app/api/v1/contactus",
         formData
       ); 
 

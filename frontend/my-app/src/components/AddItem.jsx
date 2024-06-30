@@ -20,7 +20,7 @@ const AddItem = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-   await axios.post("http://localhost:3000/api/v1/createmenu",formData);
+   await axios.post("https://food-restaurent-plum.vercel.app/api/v1/createmenu",formData);
     // console.log(response);
    
     setFormData({

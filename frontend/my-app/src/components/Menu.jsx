@@ -15,7 +15,7 @@ const Menu = () => {
   useEffect(() => {
     async function fetchCategories() {
       try {
-        const response = await axios.get("http://localhost:3000/api/v1/getcategories");
+        const response = await axios.get("https://food-restaurent-plum.vercel.app/api/v1/getcategories");
         setCategories(response?.data?.data);
       } catch (error) {
         console.log("Something went wrong while fetching categories", error);
@@ -27,7 +27,7 @@ const Menu = () => {
 
   const fetchMenuItems = async (categoryName) => {
     try {
-      const response = await axios.get(`http://localhost:3000/api/v1/getmenu/${categoryName}`);
+      const response = await axios.get(`https://food-restaurent-plum.vercel.app/api/v1/getmenu/${categoryName}`);
       setMenuItems((prev) => ({
         ...prev,
         [categoryName]: response?.data,

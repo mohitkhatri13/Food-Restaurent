@@ -25,7 +25,7 @@ const LoginForm = () => {
     e.preventDefault();
     try {
       const response = await axios.post(
-        "http://localhost:3000/api/v1/auth/login",
+        "https://food-restaurent-plum.vercel.app/api/v1/auth/login",
         formData
       );
         //  console.log(response.data.token);

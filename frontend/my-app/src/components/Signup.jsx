@@ -36,7 +36,7 @@ const SignupForm = () => {
 
     try {
       const response = await axios.post(
-        "http://localhost:3000/api/v1/auth/signup",
+        "https://food-restaurent-plum.vercel.app/api/v1/auth/signup",
         formData
       );
       console.log(response);

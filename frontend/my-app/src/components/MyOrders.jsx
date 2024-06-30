@@ -11,7 +11,7 @@ const ViewOrders = () => {
   useEffect(() => {
     const fetchOrders = async () => {
       try {
-        const response = await axios.get(`http://localhost:3000/api/v1/getuserorder/${userId?._id}`);
+        const response = await axios.get(`https://food-restaurent-plum.vercel.app/v1/getuserorder/${userId?._id}`);
         if (response?.data?.success) {
           setOrders(response?.data?.data);
         } else {

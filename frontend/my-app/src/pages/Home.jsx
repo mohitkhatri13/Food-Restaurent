@@ -7,7 +7,7 @@ const Home = () => {
 
   const fetchData = async () => {
     try {
-      const response = await axios.get("http://localhost:3000/api/v1/getmenu"); 
+      const response = await axios.get("https://food-restaurent-plum.vercel.app/api/v1/getmenu"); 
       setMenu(response.data);
     } catch (error) {
       console.error('Error faced in fetching data:', error);
