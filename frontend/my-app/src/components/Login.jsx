@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { checkrole } from "../slice/staffcustomerSlice";
 import { loginSuccess ,login , usertoken} from "../slice/authSlice";
 import toast from "react-hot-toast";
@@ -28,7 +28,7 @@ const LoginForm = () => {
         "http://localhost:3000/api/v1/auth/login",
         formData
       );
-         console.log(response.data.token);
+        //  console.log(response.data.token);
       const userId = response?.data;
       dispatch(loginSuccess(userId));
       dispatch(usertoken(response?.data?.token))

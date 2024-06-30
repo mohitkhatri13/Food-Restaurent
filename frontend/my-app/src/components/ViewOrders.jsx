@@ -11,7 +11,7 @@ const ViewOrders = () => {
         const response = await axios.get(
           "http://localhost:3000/api/v1/getpendingorders"
         );
-        setOrders(response.data.data);
+        setOrders(response?.data?.data);
       } catch (error) {
         console.error("Error fetching orders:", error);
         toast.error("Failed to fetch orders. Please try again.");
@@ -23,7 +23,7 @@ const ViewOrders = () => {
 
   const handleStatusToggle = async (orderId, currentStatus) => {
     try {
-      const response = await axios.put(
+      await axios.put(
         "http://localhost:3000/api/v1/setorderstatus",
         {
           orderId,
@@ -52,10 +52,9 @@ const ViewOrders = () => {
             <div className="flex justify-between items-center">
               <div>
                 <h3 className="text-lg font-semibold">Order ID: {order._id}</h3>
-                <p className="text-gray-700">
-                  User: {order.user.firstName} {order.user.lastName}
-                </p>
-                <p className="text-gray-700">Email: {order.user.email}</p>
+                <p className="text-gray-700">User: {order.user ? `${order.user.firstName} ${order.user.lastName}` : 'Unknown'}</p>
+                <p className="text-gray-700">Email: {order.user ? order.user.email : 'Unknown'}</p>
+
                 <ul className="mt-2">
                   {order.items.map((item, index) => (
                     <li key={index} className="text-gray-700">

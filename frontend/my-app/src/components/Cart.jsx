@@ -38,7 +38,7 @@ const Cart = () => {
       }
 
   
-      const response = await axios.post(
+       await axios.post(
         "http://localhost:3000/api/v1/createorder",
         {
           userId: userId,

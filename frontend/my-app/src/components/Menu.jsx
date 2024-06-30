@@ -16,7 +16,7 @@ const Menu = () => {
     async function fetchCategories() {
       try {
         const response = await axios.get("http://localhost:3000/api/v1/getcategories");
-        setCategories(response.data.data);
+        setCategories(response?.data?.data);
       } catch (error) {
         console.log("Something went wrong while fetching categories", error);
       }
@@ -30,7 +30,7 @@ const Menu = () => {
       const response = await axios.get(`http://localhost:3000/api/v1/getmenu/${categoryName}`);
       setMenuItems((prev) => ({
         ...prev,
-        [categoryName]: response.data,
+        [categoryName]: response?.data,
       }));
     } catch (error) {
       console.log("Something went wrong while fetching menu items", error);

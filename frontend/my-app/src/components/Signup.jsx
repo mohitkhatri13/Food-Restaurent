@@ -5,7 +5,7 @@ import { login } from "../slice/authSlice";
 import { useDispatch } from "react-redux";
 import { checkrole } from "../slice/staffcustomerSlice";
 import toast from "react-hot-toast";
-
+import { loginSuccess } from "../slice/authSlice";
 const SignupForm = () => {
   const dispatch = useDispatch();
   const [formData, setFormData] = useState({
@@ -39,8 +39,12 @@ const SignupForm = () => {
         "http://localhost:3000/api/v1/auth/signup",
         formData
       );
+      console.log(response);
+      const userId = response?.data;
+      dispatch(loginSuccess(userId));
+      
       dispatch(login(true));
-      let type = response.data.user.role;
+      let type = response?.data?.user?.role;
       if (type === "staff") {
         dispatch(checkrole(false));
       } else {

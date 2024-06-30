@@ -12,10 +12,10 @@ const ViewOrders = () => {
     const fetchOrders = async () => {
       try {
         const response = await axios.get(`http://localhost:3000/api/v1/getuserorder/${userId?._id}`);
-        if (response.data.success) {
-          setOrders(response.data.data);
+        if (response?.data?.success) {
+          setOrders(response?.data?.data);
         } else {
-          toast.error(response.data.message);
+          toast.error(response?.data?.message);
         }
       } catch (error) {
         console.error('Error fetching orders:', error);
