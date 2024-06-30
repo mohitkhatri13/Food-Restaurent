@@ -50,8 +50,8 @@ const ViewOrders = () => {
       <ul className="space-y-4">
         {orders.map((order) => (
           <li key={order._id} className="border p-4 rounded-lg shadow-md">
-            <div className="flex justify-between items-center">
-              <div>
+            <div className="flex flex-col lg:flex-row justify-between items-center">
+              <div className="flex flex-col ">
                 <h3 className="text-lg font-semibold">Order ID: {order._id}</h3>
                 <p className="text-gray-700">User: {order.user ? `${order.user.firstName} ${order.user.lastName}` : 'Unknown'}</p>
                 <p className="text-gray-700">Email: {order.user ? order.user.email : 'Unknown'}</p>
@@ -72,7 +72,7 @@ const ViewOrders = () => {
               </div>
               <button
                 onClick={() => handleStatusToggle(order._id, order.status)}
-                className={`ml-4 py-2 px-4 rounded ${
+                className={`ml-4 mt-10 py-2 px-4 rounded ${
                   order.status ? "bg-red-700" : "bg-orange-500"
                 } text-white`}
               >
