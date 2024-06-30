@@ -1,3 +1,4 @@
+require('dotenv').config();
 // server.js
 const express = require('express');
 const connectDB = require("./config/database");
@@ -8,7 +9,7 @@ const categoryRoutes = require('./routes/categoryroutes');
 const orderRoutes = require('./routes/orderRoutes')
 const contactusRoute = require('./routes/contactusRoute')
 
-require('dotenv').config();
+
 const cors  = require("cors")
 const app = express();
 
