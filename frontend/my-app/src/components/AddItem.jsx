@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-
+import toast from 'react-hot-toast';
 
 const AddItem = () => {
   const [formData, setFormData] = useState({
@@ -31,6 +31,7 @@ const AddItem = () => {
       price: '',
       description: ''
     });
+    toast.success("Item Added Successfully in the menu")
   };
 
   return (
@@ -67,6 +68,7 @@ const AddItem = () => {
             <option value="breakfast">Breakfast</option>
             <option value="lunch">Lunch</option>
             <option value="diet">Diet</option>
+            <option value="dinner">Dinner</option>
             {/* Add more options as needed */}
           </select>
         </div>

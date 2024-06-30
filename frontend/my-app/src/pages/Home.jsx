@@ -21,9 +21,10 @@ const Home = () => {
   return (
     <div className='h-screen bg-orange-100'>
       <div className="flex flex-wrap justify-center gap-4 p-4">
-        {menu.map((menuItem, index) => (
+        {menu.map((menuItem) => (
           <MenuCard
-            key={index}
+            key={menuItem._id}
+            id={menuItem._id}
             name={menuItem.name}
             description={menuItem.description}
             price={menuItem.price}

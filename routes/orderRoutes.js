@@ -1,5 +1,5 @@
 const express = require('express');
-const { getCartItems, addToCart, updateCartItem, removeFromCart,getOrderDetails,setorderstatus ,getIncomingOrders} = require('../controllers/orderControllers');
+const { getCartItems, addToCart, updateCartItem, removeFromCart,getOrderDetails,setorderstatus ,getIncomingOrders , ordercreate} = require('../controllers/orderControllers');
 
 const router = express.Router();
 
@@ -12,5 +12,6 @@ router.delete('/cart/:customerId/:menuItemId',auth, isCustomer, removeFromCart);
 router.get('/orders/:orderId' ,auth,isCustomer, getOrderDetails)
 router.put('/orderstatus/:orderId',auth,isStaff,setorderstatus)
 router.get('/incomingorders',auth,isStaff,getIncomingOrders)
+router.post('/createorder' , ordercreate)
 
 module.exports = router;

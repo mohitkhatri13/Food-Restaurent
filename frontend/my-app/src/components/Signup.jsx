@@ -1,53 +1,65 @@
-import React, { useState } from 'react';
-import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
-import {login} from "../slice/authSlice"
-import { useDispatch } from 'react-redux';
-import { checkrole } from '../slice/staffcustomerSlice';
+import React, { useState } from "react";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
+import { login } from "../slice/authSlice";
+import { useDispatch } from "react-redux";
+import { checkrole } from "../slice/staffcustomerSlice";
+import toast from "react-hot-toast";
+
 const SignupForm = () => {
   const dispatch = useDispatch();
   const [formData, setFormData] = useState({
-    firstName: '',
-    lastName: '',
-    email: '',
-    password: '',
-    confirmpassword: '',
-    role: ''
+    firstName: "",
+    lastName: "",
+    email: "",
+    password: "",
+    confirmpassword: "",
+    role: "",
   });
   const navigate = useNavigate();
+
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData(prevState => ({
+    setFormData((prevState) => ({
       ...prevState,
-      [name]: value
+      [name]: value,
     }));
   };
 
-  const handleSubmit =async (e) => {
-
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    try{
-       const response=  await axios.post("http://localhost:3000/api/v1/auth/signup" , formData)
-         dispatch(login(true));
-         let type = response.data.user.role;
-         if(type==="staff"){
-          console.log("hello");
-          dispatch(checkrole(true));
-         }
-         else{
-          dispatch(checkrole(false));
-         }
-         navigate("/")
+
+    if (formData.password !== formData.confirmpassword) {
+      toast.error("Passwords do not match");
+      return;
     }
-    catch(error){
-        console.log(error);
+
+    try {
+      const response = await axios.post(
+        "http://localhost:3000/api/v1/auth/signup",
+        formData
+      );
+      dispatch(login(true));
+      let type = response.data.user.role;
+      if (type === "staff") {
+        dispatch(checkrole(false));
+      } else {
+        dispatch(checkrole(true));
+      }
+      navigate("/");
+      toast.success("Registration successful!");
+    } catch (error) {
+      if (error.response && error.response.status === 400) {
+        toast.error("Email is already registered");
+      } else {
+        toast.error("Failed to sign up. Please try again later.");
+      }
     }
-   
   };
 
   return (
-    <div className="flex justify-center items-center h-screen ">
-      <div className="bg-orange-100 p-8 rounded-lg shadow-lg w-11/12 md:w-1/2 lg:w-1/3 ">
+    <div className="flex justify-center items-center h-screen">
+      <div className="bg-orange-100 p-8 rounded-lg shadow-lg w-11/12 md:w-1/2 lg:w-1/3">
         <h2 className="text-2xl font-bold mb-6 text-center">Sign Up</h2>
         <form onSubmit={handleSubmit}>
           <div className="mb-4">

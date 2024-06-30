@@ -6,6 +6,7 @@ const userRoutes = require('./routes/userRoutes')
 const menuRoutes = require('./routes/menuRoutes')
 const categoryRoutes = require('./routes/categoryroutes');
 const orderRoutes = require('./routes/orderRoutes')
+const contactusRoute = require('./routes/contactusRoute')
 require('dotenv').config();
 const cors  = require("cors")
 const app = express();
@@ -22,6 +23,7 @@ app.use('/api/v1/auth', userRoutes);
 app.use('/api/v1', menuRoutes);
 app.use('/api/v1/',categoryRoutes)
 app.use('/api/v1',orderRoutes)
+app.use('/api/v1',contactusRoute)
 
 
 const PORT = process.env.PORT || 5000;

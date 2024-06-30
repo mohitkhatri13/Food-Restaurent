@@ -7,7 +7,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { logout } from "../slice/authSlice";
 import { checkrole } from "../slice/staffcustomerSlice";
 import { BsCart2 } from "react-icons/bs";
-
+import toast from "react-hot-toast";
 const Navbar = () => {
   const [toggleMenu, setToggleMenu] = React.useState(false);
   const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
@@ -17,10 +17,11 @@ const Navbar = () => {
 
   const handleLogout = () => {
     if (isCustomer) {
-      dispatch(checkrole(false)); // Resetting isCustomer state on logout
+      dispatch(checkrole(false));
     }
+    toast.success("Logout successfully");
     dispatch(logout());
-    navigate("/"); // Navigate to home page after logout
+    navigate("/");
   };
 
   const closeMenu = () => {
@@ -49,18 +50,28 @@ const Navbar = () => {
             {isLoggedIn && isCustomer ? (
               <div className="flex gap-x-1 items-center">
                 <Link
-                  to="/orders"
+                  to="/cart"
                   className="hover:scale-105 hover:text-gray-700"
                 >
                   {" "}
-                  Orders{" "}
+                  Cart{" "}
                 </Link>
                 <BsCart2 />
               </div>
             ) : null}
+            {isLoggedIn && isCustomer ? (
+              <div className="flex gap-x-1 items-center">
+                <Link
+                  to="/myorders"
+                  className="hover:scale-105 hover:text-gray-700"
+                >
+                  My Orders
+                </Link>
+              </div>
+            ) : null}
 
             <Link
-              to="/contact-us"
+              to="/contactus"
               className="hover:scale-105 hover:text-gray-700"
             >
               {" "}
@@ -74,7 +85,7 @@ const Navbar = () => {
                 View orders
               </Link>
             ) : null}
-             {isLoggedIn && !isCustomer ? (
+            {isLoggedIn && !isCustomer ? (
               <Link
                 to="/additem"
                 className="hover:scale-105 hover:text-gray-700"
@@ -93,10 +104,6 @@ const Navbar = () => {
               >
                 Logout
               </button>
-              <div className="w-px h-5 bg-gray-500"></div>
-              <a href="/" className="hover:text-gray-700">
-                Book Table
-              </a>
             </div>
           ) : (
             <div className="flex gap-x-4 items-center justify-center">
@@ -112,10 +119,6 @@ const Navbar = () => {
               >
                 Sign Up
               </Link>
-              <div className="w-px h-5 bg-gray-500"></div>
-              <a href="/" className="hover:text-gray-700">
-                Book Table
-              </a>
             </div>
           )}
         </div>
@@ -149,7 +152,7 @@ const Navbar = () => {
                     </Link>
                   </li>
                   <li className="hover:scale-105">
-                    <Link to="/contact-us" onClick={closeMenu}>
+                    <Link to="/contactus" onClick={closeMenu}>
                       Contact
                     </Link>
                   </li>
@@ -166,6 +169,18 @@ const Navbar = () => {
                         Add New Item
                       </Link>
                     </li>
+                  ) : null}
+                  {isLoggedIn && isCustomer ? (
+                    <div className="flex gap-x-1 items-center">
+                      <Link
+                        to="/cart"
+                        className="hover:scale-105 hover:text-gray-700"
+                      >
+                        {" "}
+                        Cart{" "}
+                      </Link>
+                      <BsCart2 />
+                    </div>
                   ) : null}
                 </ul>
               </div>

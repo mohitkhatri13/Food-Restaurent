@@ -1,10 +1,16 @@
-import { useEffect, useState } from "react";
-import axios from "axios";
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
+import { useDispatch, useSelector } from 'react-redux';
+import { addToCart } from '../slice/cartSlice';
+import toast from 'react-hot-toast';
 
-const ViewCategories = () => {
+const Menu = () => {
   const [categories, setCategories] = useState([]);
   const [activeCategory, setActiveCategory] = useState(null);
   const [menuItems, setMenuItems] = useState({});
+  const dispatch = useDispatch();
+  const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
+  const isCustomer = useSelector((state) => state.role.isCustomer);
 
   useEffect(() => {
     async function fetchCategories() {
@@ -22,7 +28,6 @@ const ViewCategories = () => {
   const fetchMenuItems = async (categoryName) => {
     try {
       const response = await axios.get(`http://localhost:3000/api/v1/getmenu/${categoryName}`);
-      console.log(response)
       setMenuItems((prev) => ({
         ...prev,
         [categoryName]: response.data,
@@ -43,6 +48,19 @@ const ViewCategories = () => {
     }
   };
 
+  const handleAddToCart = (item) => {
+    if (!isLoggedIn) {
+      toast.error('Please log in first.');
+      return;
+    }
+    if (!isCustomer) {
+      toast.error('Please log in as a customer to add to cart.');
+      return;
+    }
+    dispatch(addToCart({ id: item._id, name: item.name, price: item.price }));
+    toast.success(`${item.name} added to cart!`);
+  };
+
   return (
     <div className="max-w-4xl mx-auto p-4">
       <h1 className="text-2xl font-bold mb-6">Categories</h1>
@@ -60,11 +78,19 @@ const ViewCategories = () => {
                 <ul className="p-4 space-y-2">
                   {menuItems[category.name].map((item) => (
                     <li key={item._id} className="border-b pb-2">
-                      <div className="flex justify-between">
-                        <span>{item.name}</span>
-                        <span>${item.price}</span>
+                      <div className="flex justify-between items-center">
+                        <div>
+                          <span className="font-semibold">{item.name}</span>
+                          <span className="ml-2 text-gray-600">(${item.price})</span>
+                          <p className="text-sm text-gray-600">{item.description}</p>
+                        </div>
+                        <button
+                          onClick={() => handleAddToCart(item)}
+                          className="bg-orange-500 text-white px-4 py-2 rounded hover:bg-orange-700"
+                        >
+                          Add to Cart
+                        </button>
                       </div>
-                      <p className="text-sm text-gray-600">{item.description}</p>
                     </li>
                   ))}
                 </ul>
@@ -77,4 +103,4 @@ const ViewCategories = () => {
   );
 };
 
-export default ViewCategories;
+export default Menu;

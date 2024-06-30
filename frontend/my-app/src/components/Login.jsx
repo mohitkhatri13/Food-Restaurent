@@ -1,48 +1,61 @@
-import React, { useState } from 'react';
-import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
-import {login} from "../slice/authSlice"
-import { checkrole } from '../slice/staffcustomerSlice';
+import React, { useState } from "react";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { login } from "../slice/authSlice";
+import { checkrole } from "../slice/staffcustomerSlice";
+import { loginSuccess } from "../slice/authSlice";
+import toast from "react-hot-toast";
 const LoginForm = () => {
   const dispatch = useDispatch();
 
   const [formData, setFormData] = useState({
-    email: '',
-    password: ''
+    email: "",
+    password: "",
   });
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData(prevState => ({
+    setFormData((prevState) => ({
       ...prevState,
-      [name]: value
+      [name]: value,
     }));
   };
- const navigate= useNavigate();
+  const navigate = useNavigate();
   const handleSubmit = async (e) => {
     e.preventDefault();
-     try{
-        const response =  await axios.post("http://localhost:3000/api/v1/auth/login",formData);
-         let type = response.data.user.role;
-         if(type==="staff"){
-          dispatch(checkrole(false));
-         }
-         else{
-          dispatch(checkrole(true));
-         }
-        dispatch(login(true));
-        navigate("/")
-       
-     }
-     catch(error){
-        console.log(error)
-     }
-   
+    try {
+      const response = await axios.post(
+        "http://localhost:3000/api/v1/auth/login",
+        formData
+      );
+
+      const userId = response.data;
+      dispatch(loginSuccess(userId));
+
+      let type = response.data.user.role;
+      dispatch(loginSuccess(userId));
+      if (type === "staff") {
+        dispatch(checkrole(false));
+      } else {
+        dispatch(checkrole(true));
+      }
+      dispatch(login(true));
+      toast.success("Login Successfully");
+      navigate("/");
+    } catch (error) {
+      console.log(error);
+      if(error.response.status ===401){
+        toast.error("Incorrect Password");
+      }
+      else{
+        toast.error("User Does Not exist ");
+      }
+    }
   };
 
   return (
-    <div className="flex justify-center items-center h-screen ">
+    <div className="flex justify-center items-center h-screen mt-[-100px]">
       <div className="bg-orange-100 p-8 rounded-lg shadow-lg w-11/12 md:w-1/3 lg:w-1/4">
         <h2 className="text-2xl font-bold mb-6 text-center">Login</h2>
         <form onSubmit={handleSubmit}>

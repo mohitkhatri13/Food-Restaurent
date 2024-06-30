@@ -7,6 +7,9 @@ import Signup from './components/Signup.jsx';
 import Menu from './components/Menu.jsx';
 import AddItem from './components/AddItem.jsx';
 import ViewOrders from './components/ViewOrders.jsx';
+import Cart from './components/Cart.jsx';
+import ContactForm from './components/Contactus.jsx';
+import MyOrders from './components/MyOrders.jsx';
 function App() {
   return (
     <div>
@@ -18,7 +21,9 @@ function App() {
       <Route path='/menu' element={<Menu/>}></Route>
       <Route path='/additem' element={<AddItem/>}></Route>
       <Route path='/vieworders' element={<ViewOrders/>}></Route>
-      
+      <Route path='/cart' element={<Cart/>}></Route>
+      <Route path='/contactus' element={<ContactForm/>}></Route>
+      <Route path='/myorders' element={<MyOrders/>}></Route>
       </Routes>
     </div>
   )

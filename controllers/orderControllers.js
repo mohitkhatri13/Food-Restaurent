@@ -1,6 +1,7 @@
 // controllers/orderController.js
 const Order = require('../models/Order');
 const MenuItem = require('../models/MenuItem');
+const User = require('../models/User');
 
 const getCartItems = async (req, res) => {
   try {
@@ -206,4 +207,46 @@ const getIncomingOrders = async (req, res) => {
   }
 };
 
-module.exports = { getCartItems, addToCart, updateCartItem, removeFromCart, getOrderDetails, setorderstatus, getIncomingOrders };
+
+
+
+
+
+const ordercreate = async(req  , res)=>{
+  try {
+    const { userId, items, totalPrice } = req.body;
+
+    // Check if userId is valid
+    const user = await User.findById(userId);
+    if (!user) {
+      return res.status(404).json({ error: 'User not found' });
+    }
+
+    // Create new order instance
+    const newOrder = new Order({
+      user: userId,
+      items: items,
+      totalPrice: totalPrice
+    });
+
+    // Save order to database
+    const savedOrder = await newOrder.save();
+
+    res.status(201).json(savedOrder);
+
+  } 
+  catch (error) {
+    console.error('Error creating order:', error);
+    res.status(500).json({ error: 'Server error' });
+  }
+}
+
+
+
+
+
+
+
+
+
+module.exports = { getCartItems, addToCart, updateCartItem, removeFromCart, getOrderDetails, setorderstatus, getIncomingOrders,ordercreate };
