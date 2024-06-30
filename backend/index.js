@@ -27,6 +27,9 @@ app.use('/api/v1/',categoryRoutes)
 app.use('/api/v1',orderRoutes)
 app.use('/api/v1',contactusRoute)
 
+app.get("/" , (req , res)=>{
+   res.send("sucessfull running")
+})
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
