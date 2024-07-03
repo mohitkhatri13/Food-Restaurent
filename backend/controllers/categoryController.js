@@ -4,7 +4,6 @@ const createCategory = async (req, res) => {
   const { name } = req.body;
 
   try {
-
     const existingCategory = await Category.findOne({ name });
 
     if (existingCategory) {

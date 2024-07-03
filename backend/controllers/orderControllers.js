@@ -21,7 +21,7 @@ const addToCart = async (req, res) => {
     if (!order) {
       order = new Order({ customer: customerId, tableNumber, items: [] });
     } else if (order.tableNumber !== tableNumber) {
-      order.tableNumber = tableNumber; 
+      order.tableNumber = tableNumber;
     }
     const menuItem = await MenuItem.findById(menuItemId);
     if (!menuItem) {
@@ -151,11 +151,10 @@ const getOrderDetails = async (req, res) => {
 
 const getIncomingOrders = async (req, res) => {
   try {
-    // Find all orders where status is false (assuming 'status' indicates completion status)
     const orders = await Order.find({ status: false })
-      .populate('items.menuItem'); // Populate items with menu item details
+      .populate('items.menuItem'); 
 
-    // Calculate total amount for each order
+    
     const ordersWithTotal = orders.map(order => {
       let totalAmount = 0;
       order.items.forEach(item => {
@@ -165,7 +164,7 @@ const getIncomingOrders = async (req, res) => {
         _id: order._id,
         tableNumber: order.tableNumber,
         items: order.items,
-        totalAmount: totalAmount.toFixed(2), // Format total amount to two decimal places
+        totalAmount: totalAmount.toFixed(2), 
       };
     });
 

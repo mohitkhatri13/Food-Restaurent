@@ -11,8 +11,8 @@ const menuItemSchema = new  mongoose.Schema({
     required:true
   },
   price: { type: Number, required: true },
-  // image: { type: String },
-  category: { type: mongoose.Schema.Types.ObjectId,
+  category: {
+     type: mongoose.Schema.Types.ObjectId,
      ref: 'Category' },
      image: { 
       type: String,
