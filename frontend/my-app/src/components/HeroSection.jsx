@@ -7,7 +7,7 @@ import heroimage from "../assets/slide-2.jpg"
 
 const Hero = () => {
     return ( 
-      <section className=" mb-5  h-[82vh] flex flex-col-reverse md:flex-row justify-center gap-x-4">
+      <section className=" mb-5  h-[82vh] flex flex-col-reverse md:flex-row justify-center gap-x-4 mt-8">
         <div className=" lg:w-[40vw] w-[90vw] flex flex-col items-center md:items-start justify-center gap-4">
           <span className="text-orange-400 text-sm px-4 py-1 rounded-full border-2 border-orange-400 max-w-max">
             Feast. Share. Connect.
@@ -26,7 +26,7 @@ const Hero = () => {
             
         </div>
         <div
-          className=" lg:w-[40vw] w-[90vw] bg-no-repeat bg-cover bg-center rounded-xl m-4"
+          className=" lg:w-[40vw] w-[90vw] bg-no-repeat bg-cover bg-center rounded-xl m-4 shadow-xl shadow-yellow-500"
           style={{ backgroundImage: `url(${heroimage})`, height: '76vh' }}
         ></div>
       </section>

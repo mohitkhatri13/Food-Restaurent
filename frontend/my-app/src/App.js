@@ -10,25 +10,30 @@ import ViewOrders from './components/ViewOrders.jsx';
 import Cart from './components/Cart.jsx';
 import ContactForm from './components/Contactus.jsx';
 import MyOrders from './components/MyOrders.jsx';
-import Hero from './components/HeroSection.jsx';
-import History from './components/History.jsx';
+import { useSelector } from 'react-redux';
+import Footer from './components/common/Footer.jsx';
 function App() {
+  const isCustomer = useSelector((state) => state.role.isCustomer);
   return (
     <div>
       <Navbar/>
-      {/* <Hero/> */}
-      {/* <History/> */}
       <Routes>
       <Route path="/" element={<Home />}></Route>
       <Route path='/login' element={<Login/>}></Route>
       <Route path='/signup' element={<Signup/>}></Route>
       <Route path='/menu' element={<Menu/>}></Route>
-      <Route path='/additem' element={<AddItem/>}></Route>
+      
       <Route path='/vieworders' element={<ViewOrders/>}></Route>
       <Route path='/cart' element={<Cart/>}></Route>
       <Route path='/contactus' element={<ContactForm/>}></Route>
       <Route path='/myorders' element={<MyOrders/>}></Route>
+
+      {!isCustomer && (
+          <Route path='/additem' element={<AddItem />} />
+        )}
+
       </Routes>
+      <Footer/>
     </div>
   )
 }

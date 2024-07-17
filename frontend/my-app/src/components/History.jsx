@@ -6,7 +6,7 @@ const History = () => {
     <section  className=" py-12  flex items-center justify-center ">
       <div className="   flex  flex-col lg:flex-row w-10/12 items-center justify-center ">
         <div className="lg:w-1/2">
-          <div className="relative video-box">
+          <div className="relative video-box lg:ml-10">
             <video
               className="rounded-lg h-[480px] "
               width="270"
@@ -14,6 +14,8 @@ const History = () => {
               preload="none"
               controls
               muted
+              loop
+              autoPlay
               poster={thumbnail}
               src={restvideo}
             ></video>
