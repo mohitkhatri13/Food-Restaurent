@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import MenuCard from "../components/MenuCard";
 import Shimmer from "../components/Shimmer";
+import Hero from "../components/HeroSection"; 
+import History from "../components/History";
 
 const Home = () => {
   const [menu, setMenu] = useState([]);
@@ -25,7 +27,9 @@ const Home = () => {
   }, []);
 
   return (
-    <div className="h-full bg-orange-100">
+    <div className="h-full ">.
+     <Hero/>
+     <History/>
       <div className="flex flex-wrap justify-center gap-4 p-4">
 
          { loading?(<Shimmer/>):( menu.map((menuItem) => (

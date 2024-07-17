@@ -10,10 +10,14 @@ import ViewOrders from './components/ViewOrders.jsx';
 import Cart from './components/Cart.jsx';
 import ContactForm from './components/Contactus.jsx';
 import MyOrders from './components/MyOrders.jsx';
+import Hero from './components/HeroSection.jsx';
+import History from './components/History.jsx';
 function App() {
   return (
     <div>
       <Navbar/>
+      {/* <Hero/> */}
+      {/* <History/> */}
       <Routes>
       <Route path="/" element={<Home />}></Route>
       <Route path='/login' element={<Login/>}></Route>
