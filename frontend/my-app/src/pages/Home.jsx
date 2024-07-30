@@ -6,6 +6,7 @@ import Hero from "../components/HeroSection";
 import History from "../components/History";
 import '../App.css'; // Ensure this imports your styles
 import ItemSwiper from "../components/ItemSwiper";
+import Footer from "../components/common/Footer";
 const Home = () => {
   const [menu, setMenu] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -38,7 +39,7 @@ const Home = () => {
     : menu.filter(item => item.category === category);
 
   return (
-    <div className="h-full mb-10">
+    <div className="h-full ">
       <Hero />
       <History />
     
@@ -87,6 +88,7 @@ const Home = () => {
             <ItemSwiper Items = {filteredMenu}/>
         )}
       </div>
+      <Footer/>
     </div>
   );
 };

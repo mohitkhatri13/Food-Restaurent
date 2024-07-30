@@ -12,7 +12,7 @@ import { BiLockAlt } from "react-icons/bi";
 import { AiOutlineUser } from "react-icons/ai";
 import { Link } from "react-router-dom";
 import loginpageimage from "../assets/loginimage2.jpg";
-
+import Footer from "./common/Footer";
 const SignupForm = () => {
   const dispatch = useDispatch();
   const [formData, setFormData] = useState({
@@ -69,6 +69,7 @@ const SignupForm = () => {
   };
 
   return (
+    <div>
     <div className="flex justify-center items-center h-screen">
       <div className="flex flex-col items-center justify-center w-1/2 ">
         <div className="mt-12 mb-6 flex flex-col gap-3">
@@ -175,6 +176,8 @@ const SignupForm = () => {
         className="hidden lg:block w-1/2 h-[100vh] bg-no-repeat bg-cover bg-center mt-[75px]"
         style={{ backgroundImage: `url(${loginpageimage})` }}
       ></div>
+    </div>
+    <Footer/>
     </div>
   );
 };

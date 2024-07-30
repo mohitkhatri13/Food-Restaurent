@@ -10,7 +10,7 @@ import { IoMailOutline } from "react-icons/io5";
 import { BiLockAlt } from "react-icons/bi";
 import loginpageimage from "../assets/loginimage2.jpg";
 import Input from "./common/Input";
-
+import Footer from "./common/Footer";
 const LoginForm = () => {
   const dispatch = useDispatch();
 
@@ -60,6 +60,7 @@ const LoginForm = () => {
   };
 
   return (
+     <div>
     <div className="flex flex-col md:flex-row justify-center items-center h-full">
       <div className=" flex flex-col items-center justify-center w-1/2  p-8 h-full">
         <div className="mt-12 mb-6 flex flex-col gap-3">
@@ -114,6 +115,8 @@ const LoginForm = () => {
         className="  hidden lg:block w-1/2  h-[100vh] bg-no-repeat bg-cover bg-center mt-[75px]"
         style={{ backgroundImage: `url(${loginpageimage})` }}
       ></div>
+    </div>
+    <Footer/>
     </div>
   );
 };

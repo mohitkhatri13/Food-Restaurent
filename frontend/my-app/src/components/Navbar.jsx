@@ -11,6 +11,7 @@ import toast from "react-hot-toast";
 import { NavLink } from "react-router-dom";
 import Button from "./common/Button";
 
+
 const Navbar = () => {
   const [toggleMenu, setToggleMenu] = useState(false);
   const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
@@ -170,7 +171,7 @@ const Navbar = () => {
         {toggleMenu && (
           <div className="fixed top-0 right-0 w-[33%] h-[100vh] backdrop-blur-2xl bg-[#fffefc8c]  flex flex-col justify-center items-center z-50  md:hidden ">
             <MdOutlineRestaurantMenu
-              className="absolute top-4 left-0 cursor-pointer"
+              className="absolute top-4 left-2 text-xl cursor-pointer"
               onClick={closeMenu}
             />
             <ul className="text-black text-xl text-center space-y-4 absolute top-10 flex flex-col  justify-center items-center">

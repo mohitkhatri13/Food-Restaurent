@@ -10,7 +10,7 @@ import { Link } from "react-router-dom";
 
 const Footer = () => {
   return (
-    <footer className="border-b-4 flex flex-col justify-center items-center border-orange-400 bg-yellow-50 pt-12 mt-24">
+    <footer className=" border-b-4 flex flex-col justify-center items-center border-orange-400 bg-yellow-50 pt-12 mt-24">
       {/* Footer top */}
       <div className="w-11/12">
         <div className="  box flex flex-col md:flex-row justify-between border-b-2 border-orange-200 pb-10 gap-8 mb-2">
@@ -84,7 +84,7 @@ const Footer = () => {
               className="border  p-1 rounded-full hover:text-gray-500"
               whileHover={{ y: -4 }}
             >
-              <a href="https://github.com/" aria-label="Follow me on github">
+              <a href="https://github.com/mohitkhatri13" aria-label="Follow me on github">
                 <AiFillGithub />
               </a>
             </motion.li>
@@ -100,7 +100,7 @@ const Footer = () => {
               className="border border-orange-400 p-1 rounded-full hover:text-blue-600"
               whileHover={{ y: -4 }}
             >
-              <a href="https://www.linkedin.com/in/" aria-label="Follow me on linkedin">
+              <a href="https://www.linkedin.com/in/mohit-khatri-138588220/" aria-label="Follow me on linkedin">
                 <AiFillLinkedin />
               </a>
             </motion.li>
