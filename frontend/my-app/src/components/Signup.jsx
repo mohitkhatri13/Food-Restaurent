@@ -40,13 +40,13 @@ const SignupForm = () => {
       toast.error("Passwords do not match");
       return;
     }
-
+// https://food-restaurent-c1px.vercel.app/
     try {
       const response = await axios.post(
-        "https://food-restaurent-plum.vercel.app/api/v1/auth/signup",
+        "https://food-restaurent-c1px.vercel.app/api/v1/auth/signup",
         formData
       );
-      console.log(response);
+      // console.log(response);
       const userId = response?.data;
       dispatch(loginSuccess(userId));
 
@@ -109,7 +109,6 @@ const SignupForm = () => {
               label="Last Name"
               placeholder="Last Name"
               errorMessage="Name should be more than 3 characters long and should not include special characters!"
-              required
               pattern="^[a-zA-Z]{3,}(?: [a-zA-Z]{3,})*$"
             />
             <Input
