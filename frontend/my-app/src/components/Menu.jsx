@@ -17,7 +17,7 @@ const Menu = () => {
     setloading(true);
     async function fetchCategories() {
       try {
-        const response = await axios.get("https://food-restaurent-plum.vercel.app/api/v1/getcategories");
+        const response = await axios.get("https://food-restaurent-c1px.vercel.app/api/v1/getcategories");
         setCategories(response?.data?.data);
         setloading(false);
       } catch (error) {
@@ -31,7 +31,7 @@ const Menu = () => {
 
   const fetchMenuItems = async (categoryName) => {
     try {
-      const response = await axios.get(`https://food-restaurent-plum.vercel.app/api/v1/getmenu/${categoryName}`);
+      const response = await axios.get(`https://food-restaurent-c1px.vercel.app/api/v1/getmenu/${categoryName}`);
       setMenuItems((prev) => ({
         ...prev,
         [categoryName]: response?.data,

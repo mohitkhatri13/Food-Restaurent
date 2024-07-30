@@ -15,7 +15,7 @@ const Home = () => {
     setLoading(true);
     try {
       const response = await axios.get(
-        "https://food-restaurent-plum.vercel.app/api/v1/getmenu"
+        "https://food-restaurent-c1px.vercel.app/api/v1/getmenu"
       );
       setMenu(response.data);
       setLoading(false);
