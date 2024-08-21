@@ -1,5 +1,6 @@
 const MenuItem = require('../models/MenuItem');
 const Category = require('../models/categorySchema');
+const uploadOnCloudinary = require("../services/uploadimage");
 
 const getMenuItems = async (req, res) => {
   try {
@@ -40,9 +41,33 @@ const createMenuItem = async (req, res) => {
     if (!categoryObj) {
       categoryObj = new Category({ name: category });
       await categoryObj.save();
-    }
+    }  
+     
+    // image handling 
 
-    const menuItem = new MenuItem({ name, category: categoryObj._id, price, description });
+    const thumbnaillocalpath =  req.files?.thumbnail[0]?.path
+    
+    if(!thumbnaillocalpath){
+      return res.status(400).json({
+        success:false,
+        message:"thumbnail image is required first "
+      })
+    }
+     console.log(thumbnaillocalpath);
+
+    // upload on cloudinary
+     const thumbnail  = await uploadOnCloudinary(thumbnaillocalpath);
+     
+     if(!thumbnail){
+      return res.status(400).json({
+        success:false,
+        message:"thumbnail image is required second"
+      })
+     }
+
+    const menuItem = new MenuItem({ name, category: categoryObj._id, price, description
+      , image:thumbnail.url
+     });
     await menuItem.save();
 
     categoryObj.items.push(menuItem._id);
