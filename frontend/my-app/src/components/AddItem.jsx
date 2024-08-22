@@ -7,29 +7,56 @@ const AddItem = () => {
     name: '',
     category: '',
     price: '',
-    description: ''
+    description: '',
+    thumbnail: null,
   });
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData(prevState => ({
+    setFormData((prevState) => ({
       ...prevState,
-      [name]: value
+      [name]: value,
+    }));
+  };
+
+  const handleFileChange = (e) => {
+    setFormData((prevState) => ({
+      ...prevState,
+      thumbnail: e.target.files[0],
     }));
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-   await axios.post("https://food-restaurent-c1px.vercel.app/api/v1/createmenu",formData);
-    // console.log(response);
-   
-    setFormData({
-      name: '',
-      category: '',
-      price: '',
-      description: ''
-    });
-    toast.success("Item Added Successfully in the menu")
+
+    const data = new FormData();
+    data.append('name', formData.name);
+    data.append('category', formData.category);
+    data.append('price', formData.price);
+    data.append('description', formData.description);
+    data.append('thumbnail', formData.thumbnail);
+
+    try {
+      const response = await axios.post('https://food-restaurent-c1px.vercel.app/api/v1/createmenu', data, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      });
+      console.log('Menu item created:', response.data);
+      toast.success('Menu item created successfully!');
+
+      // Reset form after successful submission
+      setFormData({
+        name: '',
+        category: '',
+        price: '',
+        description: '',
+        thumbnail: null,
+      });
+    } catch (error) {
+      console.error('Error creating menu item:', error.response?.data || error.message);
+      toast.error('Failed to create menu item.');
+    }
   };
 
   return (
@@ -91,6 +118,17 @@ const AddItem = () => {
             onChange={handleChange}
             rows={3}
             className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-orange-500 focus:border-orange-500 sm:text-sm"
+            required
+          />
+        </div>
+        <div>
+          <label htmlFor="thumbnail" className="block text-sm font-medium text-gray-700">Thumbnail</label>
+          <input
+            type="file"
+            id="thumbnail"
+            name="thumbnail"
+            onChange={handleFileChange}
+            className="mt-1 block w-full text-sm text-gray-900 border border-gray-300 rounded-md cursor-pointer focus:outline-none focus:ring-orange-500 focus:border-orange-500"
             required
           />
         </div>

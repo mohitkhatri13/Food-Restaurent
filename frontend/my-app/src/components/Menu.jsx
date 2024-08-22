@@ -128,8 +128,8 @@ const Menu = () => {
           </div>
         )}
       </div >
-       <div className="absolute w-full bottom-0">
-      <Footer />
+       <div className=" w-full bottom-0">
+       <Footer />
       </div>
     </div>
   );
