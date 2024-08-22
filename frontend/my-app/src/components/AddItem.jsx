@@ -36,12 +36,13 @@ const AddItem = () => {
     data.append('description', formData.description);
     data.append('thumbnail', formData.thumbnail);
 
-    try {
-      const response = await axios.post('http://localhost:4000/api/v1/createmenu', data, {
+    try { 
+      const response = await axios.post('https://food-restaurent.onrender.com/api/v1/createmenu', data, {
         // headers: {
         //   'Content-Type': 'multipart/form-data',
         // },
       });
+      
       console.log('Menu item created:', response.data);
       toast.success('Menu item created successfully!');
 

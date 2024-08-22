@@ -40,10 +40,10 @@ const SignupForm = () => {
       toast.error("Passwords do not match");
       return;
     }
-// https://food-restaurent-c1px.vercel.app/
+// https://food-restaurent.onrender.com/
     try {
       const response = await axios.post(
-        "https://food-restaurent-c1px.vercel.app/api/v1/auth/signup",
+        "https://food-restaurent-xi.vercel.app/api/v1/auth/signup",
         formData
       );
       // console.log(response);

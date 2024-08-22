@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import MenuCard from "../components/MenuCard";
+// import MenuCard from "../components/MenuCard";
 import Shimmer from "../components/Shimmer";
 import Hero from "../components/HeroSection"; 
 import History from "../components/History";
@@ -16,7 +16,7 @@ const Home = () => {
     setLoading(true);
     try {
       const response = await axios.get(
-        "https://food-restaurent-c1px.vercel.app/api/v1/getmenu"
+        "https://food-restaurent-xi.vercel.app/api/v1/getmenu"
       );
       setMenu(response.data);
       setLoading(false);

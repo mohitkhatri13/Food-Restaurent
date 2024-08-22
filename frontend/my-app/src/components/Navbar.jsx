@@ -18,15 +18,20 @@ const Navbar = () => {
   const isCustomer = useSelector((state) => state.role.isCustomer);
   const dispatch = useDispatch();
   const navigate = useNavigate();
-
-  const handleLogout = () => {
+  const handleLogout = async () => {
     if (isCustomer) {
       dispatch(checkrole(false));
     }
-    toast.success("Logout successfully");
-    dispatch(logout());
-    navigate("/");
+  
+    try {
+      await dispatch(logout()); // Ensure logout completes before navigating
+      toast.success("Logout successfully");
+      navigate("/"); // Redirect to the home page
+    } catch (error) {
+      toast.error("Logout failed");
+    }
   };
+  
 
   const closeMenu = () => {
     setToggleMenu(false);

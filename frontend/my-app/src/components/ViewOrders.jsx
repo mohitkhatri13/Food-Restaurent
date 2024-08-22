@@ -9,7 +9,7 @@ const ViewOrders = () => {
     const fetchPendingOrders = async () => {
       try {
         const response = await axios.get(
-          "https://food-restaurent-c1px.vercel.app/api/v1/getpendingorders"
+          "https://food-restaurent-xi.vercel.app/api/v1/getpendingorders"
         );
         setOrders(response?.data?.data);
       } catch (error) {
@@ -24,7 +24,7 @@ const ViewOrders = () => {
   const handleStatusToggle = async (orderId, currentStatus) => {
     try {
       await axios.put(
-        "https://food-restaurent-c1px.vercel.app/api/v1/setorderstatus",
+        "https://food-restaurent-xi.vercel.app/api/v1/setorderstatus",
         {
           orderId,
           status: !currentStatus,

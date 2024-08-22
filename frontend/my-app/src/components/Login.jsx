@@ -31,7 +31,7 @@ const LoginForm = () => {
     e.preventDefault();
     try {
       const response = await axios.post(
-        "https://food-restaurent-c1px.vercel.app/api/v1/auth/login",
+        "https://food-restaurent-xi.vercel.app/api/v1/auth/login",
         formData
       );
       //  console.log(response.data.token);

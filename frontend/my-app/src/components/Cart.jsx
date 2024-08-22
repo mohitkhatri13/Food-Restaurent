@@ -39,7 +39,7 @@ const Cart = () => {
 
   
        await axios.post(
-        "https://food-restaurent-c1px.vercel.app/api/v1/createorder",
+        "https://food-restaurent-xi.vercel.app/api/v1/createorder",
         {
           userId: userId,
           items: cartItems,
