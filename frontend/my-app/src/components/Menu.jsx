@@ -104,7 +104,7 @@ const Menu = () => {
                                   {item.name}
                                 </span>
                                 <span className="ml-2 text-gray-600">
-                                  (${item.price})
+                                  (Rs-{item.price})
                                 </span>
                                 <p className="text-sm text-gray-600">
                                   {item.description}

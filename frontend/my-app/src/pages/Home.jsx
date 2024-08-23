@@ -19,6 +19,8 @@ const Home = () => {
         "https://food-restaurent-xi.vercel.app/api/v1/getmenu"
       );
       setMenu(response.data);
+      console.log(response.data);
+     
       setLoading(false);
     } catch (error) {
       console.error("Error faced in fetching data:", error);
@@ -28,6 +30,7 @@ const Home = () => {
 
   useEffect(() => {
     fetchData();
+   
   }, []);
 
   const handleCategoryClick = (category) => {
@@ -36,7 +39,7 @@ const Home = () => {
 
   const filteredMenu = category === "all" 
     ? menu 
-    : menu.filter(item => item.category === category);
+    : menu.filter(item => item.category?.name === category);
 
   return (
     <div className="h-full ">
@@ -63,9 +66,9 @@ const Home = () => {
         </li>
         <li 
           className={`hover:font-bold cursor-pointer w-24 text-center ${category === 'appetizer' ? 'font-bold bg-yellow-400 px-3 py-1 rounded-2xl text-white' : ''}`} 
-          onClick={() => handleCategoryClick('appetizer')}
+          onClick={() => handleCategoryClick('appetizers')}
         >
-          Appetizer
+          Appetizers
         </li>
         <li 
           className={`hover:font-bold cursor-pointer w-24 text-center ${category === 'snacks' ? 'font-bold bg-yellow-400 px-3 py-1 rounded-2xl text-white' : ''}`} 

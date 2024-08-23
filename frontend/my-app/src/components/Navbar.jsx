@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState , useRef } from "react";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { MdOutlineRestaurantMenu } from "react-icons/md";
 import { Link, useNavigate } from "react-router-dom";
@@ -10,6 +10,7 @@ import { BsCart2 } from "react-icons/bs";
 import toast from "react-hot-toast";
 import { NavLink } from "react-router-dom";
 import Button from "./common/Button";
+import useOnClickOutside from "../hooks/useOnClickOutside";
 
 
 const Navbar = () => {
@@ -18,6 +19,9 @@ const Navbar = () => {
   const isCustomer = useSelector((state) => state.role.isCustomer);
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const ref = useRef(null);
+  useOnClickOutside(ref , ()=>setToggleMenu(false));
+
   const handleLogout = async () => {
     if (isCustomer) {
       dispatch(checkrole(false));
@@ -174,7 +178,7 @@ const Navbar = () => {
           />
         )}
         {toggleMenu && (
-          <div className="fixed top-0 right-0 w-[33%] h-[100vh] backdrop-blur-2xl bg-[#fffefc8c]  flex flex-col justify-center items-center z-50  md:hidden ">
+          <div ref = {ref}  className="fixed top-0 right-0 w-[33%] h-[100vh] backdrop-blur-2xl bg-[#fffefc8c]  flex flex-col justify-center items-center z-50  md:hidden ">
             <MdOutlineRestaurantMenu
               className="absolute top-4 left-2 text-xl cursor-pointer"
               onClick={closeMenu}

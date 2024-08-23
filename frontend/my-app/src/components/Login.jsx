@@ -74,7 +74,7 @@ const LoginForm = () => {
             </Link>
           </p>
         </div>
-        <div className="p-8 rounded-lg shadow-lg scale-75 md:scale-100 lg:w-9/12 lg:h-[50vh]">
+        <div className="p-8 rounded-lg shadow-lg  md:scale-100 lg:w-9/12 lg:h-[50vh]">
           <h2 className="text-2xl font-bold mb-6 text-center">Login</h2>
           <form onSubmit={handleSubmit}>
             <div className="mb-4">
