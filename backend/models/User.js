@@ -25,8 +25,6 @@ const userSchema = new mongoose.Schema({
     enum: ['customer', 'staff'],
     required: true
   },
-
-
   token: {
     type: String
   },

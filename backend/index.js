@@ -11,6 +11,7 @@ const orderRoutes = require('./routes/orderRoutes')
 const contactusRoute = require('./routes/contactusRoute')
 const {cloudinaryConnect} = require("./config/cloudinary")
 
+const cookieParser =require("cookie-parser")
 const cors  = require("cors")
 const app = express();
 
@@ -18,9 +19,11 @@ const app = express();
 connectDB();
 cloudinaryConnect();
 
+
 // Middleware
 app.use(express.json());
 app.use(cors())
+app.use(cookieParser());
 
 // Routes
 app.use('/api/v1/auth', userRoutes);

@@ -4,6 +4,12 @@ const Contact = require('../models/contactus');
 const contactus = async (req, res) => {
   try {
     const { name, email, phone, message } = req.body;
+    if (!name || !email || !phone || !message) {
+      return res.status(200).json({
+        success: false,
+        message: "Please Enter all details "
+      })
+    }
     const newContact = new Contact({
       name,
       email,

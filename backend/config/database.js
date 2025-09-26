@@ -1,5 +1,4 @@
 const mongoose = require("mongoose")
-// const DB_NAME ="newbackend";
 require("dotenv").config();
 const connectDb = async()=>{
     try {

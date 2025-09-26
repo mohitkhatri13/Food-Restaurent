@@ -1,37 +1,23 @@
 const jwt = require("jsonwebtoken");
 
 require("dotenv").config();
-
 exports.auth = async (req, res, next) => {
   try {
     // token extract kr rhe
-    const token =
-      req.body.token ||
-      req.header("Authorisation").replace("Bearer", "");
-         console.log("hello");
+    const token = req.cookies?.token || req.header("Authorisation")?.split(' ')[1];
+    console.log("in auth middleware ", token);
     if (!token) {
       return res.status(401).json({
         success: false,
         message: "Token missing",
       });
     }
-    try {
-      const decode =  jwt.verify(token, process.env.JWT_SECRET);
-      // console.log(decode);
-      // user me payload attached kar diya yaha 
-      req.user = decode;
-    } catch (err) {
-      return res.status(401).json({
-        success: false,
-        message: "Token is Invalid",
-      });
-    }
+    const decode = jwt.verify(token, process.env.JWT_SECRET);
+
+    req.body = decode;
     next();
   } catch (error) {
-    return res.status(401).json({
-      success: false,
-      message: "Something went wrong while validating the token",
-    });
+    throw error;
   }
 };
 
