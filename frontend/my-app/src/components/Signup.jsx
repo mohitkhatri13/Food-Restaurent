@@ -12,7 +12,6 @@ import { BiLockAlt } from "react-icons/bi";
 import { AiOutlineUser } from "react-icons/ai";
 import { Link } from "react-router-dom";
 import loginpageimage from "../assets/loginimage2.jpg";
-import Footer from "./common/Footer";
 const SignupForm = () => {
   const dispatch = useDispatch();
   const [formData, setFormData] = useState({
@@ -23,6 +22,9 @@ const SignupForm = () => {
     confirmpassword: "",
     role: "",
   });
+
+ 
+
   const navigate = useNavigate();
 
   const handleChange = (e) => {
@@ -36,11 +38,20 @@ const SignupForm = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (formData.password !== formData.confirmpassword) {
+      const trimmedData = {
+    ...formData,
+    email: formData.email.trim(),
+    firstName: formData.firstName.trim(),
+    lastName: formData.lastName.trim(),
+  }
+
+    if (trimmedData.password !== trimmedData.confirmpassword) {
       toast.error("Passwords do not match");
       return;
     }
-// https://food-restaurent.onrender.com/
+
+   
+
     try {
       const response = await axios.post(
         "https://food-restaurent-xi.vercel.app/api/v1/auth/signup",
@@ -57,7 +68,7 @@ const SignupForm = () => {
       } else {
         dispatch(checkrole(true));
       }
-      navigate("/");
+      navigate("/login");
       toast.success("Registration successful!");
     } catch (error) {
       if (error.response && error.response.status === 400) {
@@ -86,7 +97,7 @@ const SignupForm = () => {
 
         <div className="p-8 rounded-lg shadow-lg  lg:w-8/12 ">
           <h2 className="text-2xl font-bold mb-6 text-center">Sign Up</h2>
-          <form onSubmit={handleSubmit}>
+          <form onSubmit={handleSubmit} >
             <Input
               type="text"
               id="firstName"
@@ -96,9 +107,9 @@ const SignupForm = () => {
               value={formData.firstName}
               label="First Name"
               placeholder="First Name"
+               pattern="^[A-Za-z]{3,}$"
               errorMessage="Name should be more than 3 characters long and should not include special characters!"
               required
-              pattern="^[a-zA-Z]{3,}(?: [a-zA-Z]{3,})*$"
             />
             <Input
               type="text"
@@ -109,8 +120,8 @@ const SignupForm = () => {
               value={formData.lastName}
               label="Last Name"
               placeholder="Last Name"
+               pattern="^[A-Za-z]{3,}$"
               errorMessage="Name should be more than 3 characters long and should not include special characters!"
-              pattern="^[a-zA-Z]{3,}(?: [a-zA-Z]{3,})*$"
             />
             <Input
               type="email"
@@ -177,7 +188,6 @@ const SignupForm = () => {
         style={{ backgroundImage: `url(${loginpageimage})` }}
       ></div>
     </div>
-    <Footer/>
     </div>
   );
 };

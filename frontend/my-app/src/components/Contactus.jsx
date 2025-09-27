@@ -73,7 +73,7 @@ const ContactForm = () => {
           <h4 className="font-bold">Chat with us</h4>
           <p>Our team is here to help</p>
           <a href="mailto:recipen@abc.com" className="font-semibold text-sm">
-            greedyguts@abc.com
+            mohitkhatri9166@gmail.com
           </a>
         </div>
         <div className="mb-5 flex flex-col gap-1">
@@ -197,7 +197,7 @@ const ContactForm = () => {
         
       </div>
     </div>
-    <Footer />
+    {/* <Footer /> */}
      </section>
   );
 };

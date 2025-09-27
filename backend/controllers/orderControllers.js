@@ -152,9 +152,9 @@ const getOrderDetails = async (req, res) => {
 const getIncomingOrders = async (req, res) => {
   try {
     const orders = await Order.find({ status: false })
-      .populate('items.menuItem'); 
+      .populate('items.menuItem');
 
-    
+
     const ordersWithTotal = orders.map(order => {
       let totalAmount = 0;
       order.items.forEach(item => {
@@ -164,7 +164,7 @@ const getIncomingOrders = async (req, res) => {
         _id: order._id,
         tableNumber: order.tableNumber,
         items: order.items,
-        totalAmount: totalAmount.toFixed(2), 
+        totalAmount: totalAmount.toFixed(2),
       };
     });
 
@@ -217,9 +217,11 @@ const getOrdersByUserId = async (req, res) => {
   const { userId } = req.params;
   try {
     const orders = await Order.find({ user: userId }).populate('user', 'firstName lastName email');
+    console.log("this is order ", orders);
     if (orders.length === 0) {
-      return res.status(404).json({
-        success: false,
+      return res.status(200).json({
+        success: true,
+        data: [],
         message: 'No orders found for this user'
       });
     }
@@ -240,10 +242,12 @@ const getOrdersByUserId = async (req, res) => {
 const getPendingOrders = async (req, res) => {
   try {
     const orders = await Order.find({ status: false }).populate('user', 'firstName lastName email');
+    // console.log("this is pending orders ", orders);
     if (orders.length === 0) {
-      return res.status(404).json({
-        success: false,
-        message: 'No pending orders found'
+      return res.status(200).json({
+        success: true,
+        message: 'No pending orders found',
+        data:[]
       });
     }
     res.status(200).json({

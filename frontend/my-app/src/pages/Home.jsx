@@ -91,7 +91,7 @@ const Home = () => {
             <ItemSwiper Items = {filteredMenu}/>
         )}
       </div>
-      <Footer/>
+      {/* <Footer/> */}
     </div>
   );
 };

@@ -10,6 +10,7 @@ const staffcustomerSlice = createSlice({
   reducers: {
     checkrole(state,action) {
       state.isCustomer = action.payload;
+      localStorage.setItem("isCustomer",action.payload);
     },
   },
 });

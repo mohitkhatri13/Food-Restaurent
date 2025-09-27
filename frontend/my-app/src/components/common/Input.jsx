@@ -13,11 +13,14 @@ const Input = ({
   errorMessage,
 }) => {
   const [showPassword, setShowPassword] = useState(false);
-  const [focused, setFocused] = useState(false);
+  const [touched, setTouched] = useState(false); // track first blur
 
-  const handleFocus = () => {
-    setFocused(true);
+  const handleBlur = () => {
+    setTouched(true);
   };
+
+  const isValid = pattern ? new RegExp(pattern).test(value) : true;
+
 
   return (
     <div className="flex flex-col relative mb-3">
@@ -27,43 +30,38 @@ const Input = ({
       <span className="absolute top-[39px] left-3 bg-light p-1 rounded text-orange-400">
         {icon}
       </span>
+
       <input
         type={type === "password" && showPassword ? "text" : type}
         onChange={handleChange}
         value={value}
         id={id}
         name={id}
-        onBlur={handleFocus}
-        focused={focused.toString()}
-        required
-        aria-required="true"
-        aria-describedby={`${id}-error`}
         placeholder={placeholder}
+        onBlur={handleBlur} // set touched after leaving field
         pattern={pattern}
-        className="py-1.5 px-11 border bg-gray-100 rounded-lg focus:outline outline-orange-400"
+        className={`py-1.5 px-11 border bg-gray-100 rounded-lg focus:outline outline-orange-400 ${
+          touched && !isValid ? "border-red-500" : ""
+        }`}
       />
-      {type === "password" && (
-        <>
-          {showPassword && (
-            <AiOutlineEyeInvisible
-              onClick={() => setShowPassword(!showPassword)}
-              className="absolute top-[42px] right-3 cursor-pointer text-gray-700 text-lg"
-            />
-          )}
-          {!showPassword && (
-            <AiOutlineEye
-              onClick={() => setShowPassword(!showPassword)}
-              className="absolute top-[42px] right-3 cursor-pointer text-gray-700 text-lg"
-            />
-          )}
-        </>
+
+      {type === "password" &&
+        (showPassword ? (
+          <AiOutlineEyeInvisible
+            onClick={() => setShowPassword(!showPassword)}
+            className="absolute top-[42px] right-3 cursor-pointer text-gray-700 text-lg"
+          />
+        ) : (
+          <AiOutlineEye
+            onClick={() => setShowPassword(!showPassword)}
+            className="absolute top-[42px] right-3 cursor-pointer text-gray-700 text-lg"
+          />
+        ))}
+
+      {/* show error only after first blur and if invalid */}
+      {touched && !isValid && (
+        <span className="pl-2 text-[12px] mt-1 text-orange-400">{errorMessage}</span>
       )}
-      <span
-        id={`${id}-error`}
-        className="hidden text-red-500 pl-2 text-sm mt-1"
-      >
-        {errorMessage}
-      </span>
     </div>
   );
 };

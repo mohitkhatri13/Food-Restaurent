@@ -21,11 +21,13 @@ const authSlice = createSlice({
     // for storing the userid
     loginSuccess: (state, action) => {
       state.user = action.payload.user; 
+      // console.log("user id redux store" , state.payload.user);
       state.isLoggedIn = true; 
     },
     //for storing the token of the user
     usertoken:(state , action)=>{
-      state.user = action.payload.token
+      state.token = action.payload.token
+      localStorage.setItem("token",action.payload.token);
     }
     
   },

@@ -10,7 +10,6 @@ import { IoMailOutline } from "react-icons/io5";
 import { BiLockAlt } from "react-icons/bi";
 import loginpageimage from "../assets/loginimage2.jpg";
 import Input from "./common/Input";
-import Footer from "./common/Footer";
 const LoginForm = () => {
   const dispatch = useDispatch();
 
@@ -27,21 +26,31 @@ const LoginForm = () => {
     }));
   };
   const navigate = useNavigate();
+
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    const trimmedData = {
+      ...formData,
+      email: formData.email.trim(),
+      password: formData.password.trim(),
+    }
     try {
       const response = await axios.post(
         "https://food-restaurent-xi.vercel.app/api/v1/auth/login",
-        formData
+        trimmedData
       );
-      //  console.log(response.data.token);
+      console.log("---------------------------yaha login page hai ");
+       console.log(response.data.token);
+       const token = response?.data?.token;
       const userId = response?.data;
       dispatch(loginSuccess(userId));
-      dispatch(usertoken(response?.data?.token));
+      dispatch(usertoken({token:token}));
 
       let type = response.data.user.role;
       dispatch(loginSuccess(userId));
       if (type === "staff") {
+        console.log("this is staff");
         dispatch(checkrole(false));
       } else {
         dispatch(checkrole(true));
@@ -86,6 +95,9 @@ const LoginForm = () => {
             value={formData.email}
             label={"Email"}
             placeholder={" Enter Your Email Id"}
+            errorMessage="Enter a valid email address!"
+            pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"
+            required
           />
            <Input
             type={"password"}
@@ -95,7 +107,7 @@ const LoginForm = () => {
             value={formData.password}
             label={"Password"}
             placeholder={"Enter your Password"}
-
+           
           />
 
              
@@ -116,7 +128,6 @@ const LoginForm = () => {
         style={{ backgroundImage: `url(${loginpageimage})` }}
       ></div>
     </div>
-    <Footer/>
     </div>
   );
 };

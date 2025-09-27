@@ -1,4 +1,4 @@
-import React, { useState , useRef } from "react";
+import React, { useState , useRef, useEffect } from "react";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { MdOutlineRestaurantMenu } from "react-icons/md";
 import { Link, useNavigate } from "react-router-dom";
@@ -14,12 +14,26 @@ import useOnClickOutside from "../hooks/useOnClickOutside";
 
 
 const Navbar = () => {
+  const token = localStorage.getItem("token");
+  const iscustomer = localStorage.getItem("isCustomer")==="true";
   const [toggleMenu, setToggleMenu] = useState(false);
-  const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
-  const isCustomer = useSelector((state) => state.role.isCustomer);
+  const [isLoggedIn  , setisLoggedIn] = useState(false);
+  const [isCustomer , setIsCustomer] = useState(false);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const ref = useRef(null);
+
+useEffect(()=>{
+  console.log("this is  in navbar " , iscustomer);
+    if(token){
+      setisLoggedIn(true);
+    }
+    if(iscustomer){
+      setIsCustomer(iscustomer); 
+      console.log("this is customer in navbar " , isCustomer);
+     }
+} , [token , iscustomer]);
+
   useOnClickOutside(ref , ()=>setToggleMenu(false));
 
   const handleLogout = async () => {
@@ -29,7 +43,11 @@ const Navbar = () => {
   
     try {
       await dispatch(logout()); // Ensure logout completes before navigating
+      localStorage.removeItem("token");
+      localStorage.removeItem(isCustomer);
       toast.success("Logout successfully");
+      setIsCustomer(false);
+      setisLoggedIn(false);
       navigate("/"); // Redirect to the home page
     } catch (error) {
       toast.error("Logout failed");

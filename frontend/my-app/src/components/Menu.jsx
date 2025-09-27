@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import { addToCart } from "../slice/cartSlice";
 import toast from "react-hot-toast";
-import Footer from "./common/Footer";
+import MoonLoader from "react-spinners/MoonLoader";
 
 const Menu = () => {
   const [categories, setCategories] = useState([]);
@@ -73,8 +73,8 @@ const Menu = () => {
     <div className="w-full realtive">
       <div className="  max-w-4xl mx-auto p-4 ">
         {loading ? (
-          <div className="flex justify-center text-2xl font-bold ">
-            Loading...
+          <div className="flex justify-center items-center h-96">
+            <MoonLoader className="" color="#eb8e05" size={60} />
           </div>
         ) : (
           <div>
@@ -127,10 +127,8 @@ const Menu = () => {
             </div>
           </div>
         )}
-      </div >
-       <div className=" w-full bottom-0">
-       <Footer />
       </div>
+      <div className=" w-full bottom-0">{/* <Footer /> */}</div>
     </div>
   );
 };
